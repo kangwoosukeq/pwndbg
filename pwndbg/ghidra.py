@@ -27,6 +27,9 @@ def decompile(func=None):
     if "pdg" not in r2.cmd("LD").split("\n"):
         raise Exception('radare2 plugin r2ghidra must be installed and available from r2')
 
+    if func and func != "main":
+        func = f"sym.{func}"
+
     if not func:
         func = hex(pwndbg.regs[pwndbg.regs.current.pc]) if pwndbg.proc.alive else 'main'
 
